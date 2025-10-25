@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mrunii! 🎂</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-light: #ffffff;
+            --accent-pink: #fbcfe8;
+            --accent-dark: #f9a8d4;
+            --primary-text: #1f2937;
+            --secondary-text: #6b7280;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-light);
+            color: var(--primary-text);
+            transition: background-color 0.5s ease;
+            overflow-x: hidden; /* Prevent accidental horizontal scroll */
+            scroll-behavior: smooth;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            /* CRITICAL FIX: Ensure page content fits within mobile screen */
+            width: 100%; 
+            max-width: 100vw;
+        }
+        
+        /* Slideshow Styling (Uses background-image for smooth transition) */
+        .slideshow-container {
+            width: 100%;
+            max-width: 90vw;
+            height: 40vh;
+            max-height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            border-radius: 1.5rem;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Confetti Animation */
+        .confetti-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-dark);
+            opacity: 0;
+            border-radius: 50%;
+            animation: confetti-fall 5s infinite;
+        }
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Message Card Styles */
+        .message-card {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(249, 168, 212, 0.2), 0 10px 10px -5px rgba(249, 168, 212, 0.1);
+            max-width: 90vw;
+            width: 500px;
+            margin-top: 2rem;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .message-card.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Gallery Styling */
+        .memory-gallery {
+            display: grid;
+            gap: 1.5rem;
+            /* Adjust minmax for better mobile flow */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 3rem;
+            padding-bottom: 5rem;
+        }
+
+        .memory-item {
+            background-color: var(--primary-light);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .memory-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* The container for the image - height is fixed */
+        .memory-image-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden; /* Important for containing the image */
+            background-color: var(--accent-pink);
+        }
+        
+        /* *** CRITICAL MOBILE FIX: Image itself uses object-cover *** */
+        .memory-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the container without stretching */
+            display: block;
+        }
+
+        .memory-caption {
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--primary-text);
+        }
+
+        /* Button Pulse */
+        .pulse-button {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 var(--accent-pink);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(251, 206, 232, 0);
+            }
+        }
+    </style>
+</head>
+<body class="selection:bg-pink-300 selection:text-white">
+
+    <div id="page-1" class="page bg-pink-50">
+        <h1 class="text-6xl font-black text-pink-500 mb-4 animate-bounce">
+            Happy Birthday Mrunii!
+        </h1>
+        <p class="text-xl text-secondary-text mb-8">
+            The celebration starts now.
+        </p>
+
+        <div class="slideshow-container">
+            </div>
+
+        <button id="next-to-2" class="pulse-button bg-pink-400 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 text-lg">
+            Start Your Journey 🚀
+        </button>
+    </div>
+
+    <div id="page-2" class="page hidden bg-pink-50 min-h-screen">
+        <h2 class="text-4xl font-extrabold text-pink-500 pt-16 mb-4">
+            Our Favorite Memories
+        </h2>
+        <p class="text-lg text-secondary-text mb-10">
+            A scroll through the best times we've shared.
+        </p>
+
+        <div id="memory-gallery" class="memory-gallery">
+            </div>
+
+        <button id="next-to-3" class="bg-pink-400 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 text-lg mb-10">
+            Unlock The Final Present 🎁
+        </button>
+    </div>
+
+    <div id="page-3" class="page hidden bg-pink-50">
+        <h2 class="text-5xl font-black text-pink-500 mb-6">
+            Your Birthday Gift
+        </h2>
+        <p class="text-xl text-secondary-text mb-8">
+            Tap the card below to open your personal message!
+        </p>
+        
+        <button id="open-present-btn" class="pulse-button bg-pink-400 hover:bg-pink-500 text-white font-bold py-4 px-12 rounded-2xl shadow-xl transition duration-300 text-2xl">
+            Tap to Open!
+        </button>
+
+        <div id="message-card" class="message-card relative">
+            <div class="confetti-overlay"></div>
+            <div class="flex items-center justify-center mb-4">
+                <svg class="w-10 h-10 text-pink-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.05 14.59l-2.09 1.11a.5.5 0 01-.73-.59l.4-2.31-1.68-1.64a.5.5 0 01.28-.85l2.33-.34 1.04-2.11a.5.5 0 01.9 0l1.04 2.11 2.33.34a.5.5 0 01.28.85l-1.68 1.64.4 2.31a.5.5 0 01-.73.59l-2.09-1.11-.07.03z"/>
+                </svg>
+                <h3 class="text-3xl font-extrabold text-pink-500 ml-3">My Amazing Bestie</h3>
+            </div>
+            
+            <p class="text-gray-700 text-lg leading-relaxed mt-4 mb-6">
+                Mrunii, today is just the start of another incredible year for you. Thank you for being my constant, my rock, and my most cherished friend. Your loyalty, brilliance, and infectious laughter make every moment an adventure. I hope your day is filled with as much joy as you bring to the world.
+            </p>
+
+            <p class="text-gray-700 text-lg leading-relaxed italic border-t pt-4 border-pink-100">
+                Cheers to you, my dear friend. You deserve all the happiness in the world.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // =================================================================
+        //                 !!! THE CODE YOU MUST EDIT !!!
+        // =================================================================
+        
+        // --- 1. Slideshow Images (Page 1) ---
+        // USE FILENAMES that are in the SAME folder as this HTML file.
+        const slideshowImages = [
+            "sl1.jpg", // Replace with your first image filename
+            "sl2.jpg", // Replace with your second image filename
+            "sl3.jpg", // Replace with your third image filename
+            "sl4.jpg"  // Replace with your fourth image filename
+        ];
+
+        // --- 2. Memory Gallery Items (Page 2) ---
+        // Change the 'url' value to your photo filenames.
+        const memoryItems = [
+            {
+                url: "memory1.jpg", // Replace with your filename
+                caption: "This is where the magic started. So grateful for this moment and all the beautiful memories that followed. ❤️"
+            },
+            {
+                url: "memory2.jpg", // Replace with your filename
+                caption: "Longest two years ever! The best feeling in the world is finally having you here. So much catching up to do ❤️"
+            },
+            {
+                url: "memory3.jpg", // Replace with your filename
+                caption: "This photo captures your beautiful smile perfectly. It's truly infectious, Mrunii! Never change."
+            },
+            {
+                url: "memory4.jpg", // Replace with your filename
+                caption: "The last time, but definitely not the last word! So many great memories made here, and even better ones are coming soon"
+            }
+        ];
+        
+        // =================================================================
+        //                  !!! END OF EDITS (usually) !!!
+        // =================================================================
+        
+        // --- Global State and Initialization ---
+        let slideIndex = 0;
+        let slideInterval;
+        const page1 = document.getElementById('page-1');
+        const page2 = document.getElementById('page-2');
+        const page3 = document.getElementById('page-3');
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        const messageCard = document.getElementById('message-card');
+        const confettiOverlay = messageCard ? messageCard.querySelector('.confetti-overlay') : null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupSlideshow();
+            setupMemoryGallery();
+            setupNavigation();
+        });
+
+        // --- Slideshow Logic ---
+        function setupSlideshow() {
+            if (!slideshowContainer) return;
+
+            slideshowImages.forEach((url, index) => {
+                const slide = document.createElement('div');
+                slide.classList.add('slide');
+                // Slideshow uses background-image and CSS 'cover'
+                slide.style.backgroundImage = `url('${url}')`; 
+                
+                if (index === 0) {
+                    slide.classList.add('active');
+                }
+                slideshowContainer.appendChild(slide);
+            });
+
+            startSlideshow();
+        }
+
+        function startSlideshow() {
+            slideInterval = setInterval(() => {
+                const slides = document.querySelectorAll('.slide');
+                if (slides.length === 0 || page1.classList.contains('hidden')) return;
+
+                slideIndex++;
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0;
+                }
+
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    if (index === slideIndex) {
+                        slide.classList.add('active');
+                    }
+                });
+            }, 5000); // Change image every 5 seconds
+        }
+
+        // --- Memory Gallery Logic ---
+        function setupMemoryGallery() {
+            const gallery = document.getElementById('memory-gallery');
+            if (!gallery) return;
+
+            // Render items
+            memoryItems.forEach(item => {
+                // *** CRITICAL MOBILE FIX: Using <img> inside a fixed-height div to ensure object-fit works ***
+                const itemHtml = `
+                    <div class="memory-item">
+                        <div class="memory-image-wrapper">
+                            <img src="${item.url}" alt="${item.caption}">
+                        </div>
+                        <div class="memory-caption">
+                            <p class="font-semibold text-pink-500 mb-1">Memory:</p>
+                            <p class="text-gray-600">${item.caption}</p>
+                        </div>
+                    </div>
+                `;
+                gallery.insertAdjacentHTML('beforeend', itemHtml);
+            });
+        }
+        
+        // --- Confetti Logic ---
+        function createConfetti() {
+            if (!confettiOverlay) return;
+            
+            const accentDark = '#f9a8d4'; 
+            const accentPink = '#fbcfe8'; 
+
+            for (let i = 0; i < 50; i++) {
+                const c = document.createElement('div');
+                c.classList.add('confetti');
+                c.style.left = `${Math.random() * 100}%`;
+                c.style.backgroundColor = i % 2 === 0 ? accentDark : accentPink; 
+                c.style.animationDelay = `${Math.random() * 0.5}s`;
+                c.style.animationDuration = `${3 + Math.random() * 2}s`;
+                confettiOverlay.appendChild(c);
+            }
+        }
+
+        // --- Navigation Logic (Page Transitions) ---
+        function setupNavigation() {
+            document.getElementById('next-to-2').addEventListener('click', () => {
+                page1.classList.add('hidden');
+                page2.classList.remove('hidden');
+                clearInterval(slideInterval); // Stop slideshow on page transition
+                window.scrollTo(0, 0); 
+            });
+
+            document.getElementById('next-to-3').addEventListener('click', () => {
+                page2.classList.add('hidden');
+                page3.classList.remove('hidden');
+                window.scrollTo(0, 0); 
+            });
+            
+            document.getElementById('open-present-btn').addEventListener('click', (event) => {
+                event.target.classList.add('hidden');
+                if (messageCard) {
+                    messageCard.classList.add('active');
+                    createConfetti(); // Start confetti
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
